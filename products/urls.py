@@ -1,5 +1,5 @@
 from django.urls    import path
-<<<<<<< HEAD
+
 from products.views.public.views  import PublicProductsView, PublicProductDetailView
 from products.views.private.views import PrivateProductsView, PrivateProductDetailView, HostProductView
 
