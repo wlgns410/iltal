@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'books',
     'core',
     'django_extensions',
+    # 'storages', # 아마존하려면 추가
 ]
 
 MIDDLEWARE = [

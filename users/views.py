@@ -135,8 +135,11 @@ class KakaoSigninView(View):
         try:
             kakao_access_token     = request.headers.get('Authorization')
             headers                = {'Authorization': f'Bearer {kakao_access_token}'}
+            print(headers)
             kakao_user             = requests.get('https://kapi.kakao.com/v2/user/me', headers=headers).json()                
             user, is_created       = User.objects.get_or_create(kakao_id=kakao_user['id'])
+            access_token           = jwt.encode({'user_id': user.id}, SECRET_KEY, ALGORITHM)
+            print(access_token)
 
             if is_created:
                 kakao_account    = kakao_user['kakao_account']
@@ -145,8 +148,9 @@ class KakaoSigninView(View):
                 user.name        = properties["nickname"]
                 user.profile_url = properties["profile_image"]
                 user.save()
+                return JsonResponse({"message":"success", "TOKEN": access_token}, status=201)
             
-            access_token = jwt.encode({'user_id': user.id}, SECRET_KEY, ALGORITHM)
+            # access_token = jwt.encode({'user_id': user.id}, SECRET_KEY, ALGORITHM)
 
             return JsonResponse({"message":"success", "TOKEN": access_token}, status=200)
 
