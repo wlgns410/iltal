@@ -1,6 +1,8 @@
 # Iltal TEAM Project
 # 팀원 : 설지우, 안희수, 이지훈
 ## 프로젝트 소개
+시연 영상 : [유투브](https://www.youtube.com/watch?v=s0_o4pgfNQQ)
+
 - 호스트와 게스트를 연결하여 다양한 액티비티 제공하는 사이트입니다.
 - 우리의 프로젝트는, 탈잉의 기능(여행 및 액티비티 리스트, 검색 필터링, 호스트 등록 등)을 대한민국의 실제 여행 및 액티비티 데이터를 모티브로 만든 프로젝트입니다.
 - 짧은 프로젝트 기간동안 개발에 집중해야 하므로 디자인 및 기능의 기획 부분만 클론했습니다.
@@ -27,6 +29,9 @@
 
 > - [Notion](https://www.notion.so/API-8ea4af1e82ad494d9a9f9f696946ac94)
 > - [Trello](https://trello.com/b/RkgLsPe1/iltal%F0%9F%8F%83%F0%9F%8F%BB%E2%99%82%EF%B8%8F)
+> - Aquerytool
+![스크린샷 2021-08-01 오후 2 06 45](https://user-images.githubusercontent.com/81137234/127760075-29c32c45-a35b-4568-bdb6-3034c198c66c.png)
+
 ### 적용 기술
 
 > - Front-End : javascript, React.js framwork, sass, hook
