@@ -11,7 +11,7 @@
 ### 개발 인원 및 기간
 - 개발기간 : 2021/7/19 ~ 2030/7/30
 - 개발 인원 : 백엔드 3명, 프론트엔드 3명
-- 백엔드 : [설지우](https://github.com/Jacesoul), [안희수](https://github.com/heesu-ahn), [이지훈](https://github.com/wlgns410)
+- 백엔드    : [설지우](https://github.com/Jacesoul), [안희수](https://github.com/heesu-ahn), [이지훈](https://github.com/wlgns410)
 - 프론트엔드 : [이수정(PM)](https://github.com/eeesssooo), [최재상](https://github.com/Higher77), [김수종](https://github.com/jaykim5)
 
 ### 프로젝트 선정이유
