@@ -5,6 +5,8 @@ from django.http    import JsonResponse
 from users.models   import User
 from my_settings    import SECRET_KEY, ALGORITHM
 
+from rest_framework.views import exception_handler
+
 def user_validator(function):
     def wrapper(self, request, *args, **kwargs):
         try:
@@ -34,3 +36,9 @@ def user_validator(function):
             return JsonResponse({"message": "INVALID_USER"}, status=401)
 
     return wrapper
+
+def custom_exception_handler(exc, context):
+    response = exception_handler(exc, context)
+    if response is not None:
+        response.data['status_code'] = response.status_code
+    return response
