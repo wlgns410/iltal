@@ -35,7 +35,6 @@
 > - [Notion](https://www.notion.so/API-8ea4af1e82ad494d9a9f9f696946ac94)
 > - [Trello](https://trello.com/b/RkgLsPe1/iltal%F0%9F%8F%83%F0%9F%8F%BB%E2%99%82%EF%B8%8F)
 > - Aquerytool
-![스크린샷 2021-08-01 오후 2 06 45](https://user-images.githubusercontent.com/81137234/127760075-29c32c45-a35b-4568-bdb6-3034c198c66c.png)
 
 <img width="965" alt="스크린샷 2021-09-02 오후 2 39 31" src="https://user-images.githubusercontent.com/81137234/131788273-69ace31c-de7a-4bf8-9549-0ee3fcac7b03.png">
 
