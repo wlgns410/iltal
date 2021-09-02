@@ -5,6 +5,105 @@
 
 - [유투브 시연 영상](https://youtu.be/s0_o4pgfNQQ)
 
+## 작성한 엔드포인트
+
+- 회원가입
+```
+class SignupView(View):
+    def post(self, request):
+
+        data = json.loads(request.body)
+        EMAIL_REGES    = '^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
+        PASSWORD_REGES = '^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$'
+
+        try:
+
+            if not re.search(EMAIL_REGES, data["email"]):
+                return JsonResponse ({"MESSAGE":"INVALID EMAIL"}, status = 400)
+
+            if not re.search(PASSWORD_REGES, data["password"]):
+                return JsonResponse ({"MESSAGE": "INVALID PASSWORD"}, status = 400)
+
+            if User.objects.filter(email=data["email"]).exists():
+                return JsonResponse ({"MESSAGE":"EXIST EMAIL"}, status = 400)
+
+            hashed_passwored = bcrypt.hashpw(data["password"].encode('utf-8'), bcrypt.gensalt()).decode()
+
+            User.objects.create(
+                email           = data["email"],
+                password        = hashed_passwored,
+                name            = data["name"],
+            )
+
+            return JsonResponse ({"MESSAGE":"SUCCESS"}, status = 201)
+        except KeyError:
+            return JsonResponse ({"MESSAGE":"KEY_ERROR"}, status = 400)
+```
+
+![스크린샷_2021-07-22_오전_10 51 43 (1)](https://user-images.githubusercontent.com/81137234/131797575-af029543-3616-46fb-9c35-e50dd4708912.png)
+
+<br>
+
+- 로그인
+```
+class SigninView(View):
+    def post(self, request):
+
+        try:
+            data = json.loads(request.body)
+            
+            if not User.objects.filter(email=data['email']).exists():
+                return JsonResponse({"message" : "INVALID_USER"}, status=401)
+
+            user = User.objects.get(email=data["email"])
+            
+            if not bcrypt.checkpw(data["password"].encode("utf-8"), user.password.encode("utf-8")):
+                return JsonResponse({"message": "INVALID_USER"}, status=401)
+            
+            access_token = jwt.encode({"user_id": user.id}, SECRET_KEY, ALGORITHM)
+            
+            return JsonResponse({"message":"success","access_token": access_token}, status=200)
+
+        except KeyError:
+            return JsonResponse({"message": "KEY_ERROR"}, status=400)
+```
+<br>
+<img width="974" alt="스크린샷_2021-07-24_오후_7 20 31" src="https://user-images.githubusercontent.com/81137234/131797984-8b159147-4d6c-42dd-a9a2-18efdbc3499c.png">
+
+
+- 소셜 로그인
+```
+class KakaoSigninView(View):
+    def get(self, request):
+        try:
+            kakao_access_token     = request.headers.get('Authorization')
+            headers                = {'Authorization': f'Bearer {kakao_access_token}'}
+            kakao_user             = requests.get('https://kapi.kakao.com/v2/user/me', headers=headers).json()                
+            user, is_created       = User.objects.get_or_create(kakao_id=kakao_user['id'])
+            access_token           = jwt.encode({'user_id': user.id}, SECRET_KEY, ALGORITHM)
+
+            if is_created:
+                kakao_account    = kakao_user['kakao_account']
+                properties       = kakao_user['properties']
+                user.email       = kakao_account["email"]
+                user.name        = properties["nickname"]
+                user.profile_url = properties["profile_image"]
+                user.save()
+                return JsonResponse({"message":"success", "TOKEN": access_token}, status=201)
+
+            return JsonResponse({"message":"success", "TOKEN": access_token}, status=200)
+
+        except KeyError:
+            return JsonResponse({"message": "KEY_ERROR"}, status=400)     
+```
+<br>
+
+<img width="576" alt="스크린샷 2021-09-02 오후 3 59 07" src="https://user-images.githubusercontent.com/81137234/131798094-4894e0f6-47b0-4453-9a4e-457557362b5a.png">
+
+<img width="734" alt="스크린샷_2021-07-26_오후_8 20 46" src="https://user-images.githubusercontent.com/81137234/131798078-884407cc-25e6-4f07-be3f-4a63f1a9f255.png">
+
+
+
 <br>
 
 ## 프로젝트 소개
